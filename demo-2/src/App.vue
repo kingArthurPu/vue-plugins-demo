@@ -1,32 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <button @click="handlerClick">xxx</button>
+    <A></A>
   </div>
 </template>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import emitter from '@/lib/js/emitter'
+import A from './components/A'
+import B from './components/B'
+export default {
+  name: 'App',
+  mixins: [emitter],
+  created() {},
+  mounted() {
+    this.$on('fn', (...e) => {
+      console.log(e)
+    })
+  },
+  methods: {
+    handlerClick() {
+      this.broadcast('C', 'test', ['aa', 'bb'])
+    },
+  },
+  components: {
+    A,
+    B,
+  },
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+</script>
+<style></style>

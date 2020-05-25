@@ -1,7 +1,3 @@
-# dispatch和broadcast
-
-创建`emitter.js`：
-```js
 function broadcast(componentName, eventName, params) {
   this.$children.forEach(child => {
     const name = child.$options.name
@@ -33,6 +29,3 @@ export default {
     }
   },
 }
-```
-
-使用`mixins`混合`emitter.js`
