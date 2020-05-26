@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <z-form :model="formValidate" :rules="ruleValidate">
+    <z-form :model="formValidate" :rules="ruleValidate" ref="form">
       <z-form-item label="用户名" prop="name">
         <z-input v-model="formValidate.name"></z-input>
       </z-form-item>
@@ -8,6 +8,8 @@
         <z-input v-model="formValidate.mail"></z-input>
       </z-form-item>
     </z-form>
+    <button @click="submit">提交</button>
+    <button @click="reset">重置</button>
   </div>
 </template>
 <script>
@@ -36,7 +38,21 @@ export default {
         ],
       },
     }
-  }
+  },
+  methods: {
+    submit(){
+      this.$refs.form.validate(valid=>{
+        if(valid){
+          console.log('提交成功')
+        }else{
+          console.log('表单校验失败')
+        }
+      })
+    },
+    reset(){
+      this.$refs.form.resetFields()
+    }
+  },
 }
 </script>
 <style></style>

@@ -28,6 +28,35 @@ export default {
       type: Object,
     },
   },
+  methods: {
+    // 重置所有数据
+    resetFields(){
+      this.fields.forEach(field=>{
+        field.resetField()
+      })
+    },
+    // 全部校验数据
+    validate(callback){
+      return new Promise(resolve=>{
+        let valid = true
+        let count = 0
+        this.fields.forEach(field=>{
+          field.validate('',errors=>{
+            if(errors){
+              valid = false
+            }
+            // 全部校验完成
+            if(++count===this.fields.length){
+              resolve(valid)
+              if(typeof callback==='function'){
+                callback(valid)
+              }
+            }
+          })
+        })
+      })
+    }
+  },
   created() {
     // 添加form-item实例
     this.$on('on-form-item-add', field => {

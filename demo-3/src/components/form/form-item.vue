@@ -25,6 +25,7 @@ export default {
   mixins: [emitter],
   data() {
     return {
+      initiaValue:null,
       isRequired: false, // 是否为必填
       validateState: '', // 校验状态
       validateMessage: '', // 校验不通过时的提示信息
@@ -88,6 +89,12 @@ export default {
     onFieldChange() {
       this.validate('change')
     },
+    // 重置数据
+    resetField(){
+      this.validateState = ''
+      this.validateMessage = ''
+      this.form.model[this.prop] = this.initiaValue
+    }
   },
   computed: {
     // 从Form的model中动态得到当前表单组件的数据
@@ -101,6 +108,8 @@ export default {
     if (this.prop) {
       this.dispatch('zForm', 'on-form-item-add', this)
       this.setRules()
+      // 设置初始值，以便在重置时恢复默认值
+      this.initiaValue = this.fieldValue
     }
   },
   beforeDestroy() {
