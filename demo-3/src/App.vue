@@ -19,10 +19,11 @@ export default {
   components: {
     zForm,
     zFormItem,
-    zInput,
+    zInput
   },
   data() {
     return {
+      value:'hello world',
       formValidate: {
         name: '',
         mail: '',
@@ -35,7 +36,7 @@ export default {
         ],
       },
     }
-  },
+  }
 }
 </script>
 <style></style>

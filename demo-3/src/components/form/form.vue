@@ -13,9 +13,9 @@ export default {
       fields: [],
     }
   },
-  provide(){
+  provide() {
     return {
-      form:this
+      form: this,
     }
   },
   props: {
@@ -30,11 +30,11 @@ export default {
   },
   created() {
     // 添加form-item实例
-    this.$on('on-form-item-add', (field) => {
+    this.$on('on-form-item-add', field => {
       if (field) this.fields.push(field)
     })
     // 移除form-item实例
-    this.$on('on-form-item-remove', (field) => {
+    this.$on('on-form-item-remove', field => {
       if (field.prop) {
         this.fields.splice(this.fields.indexOf(field), 1)
       }
