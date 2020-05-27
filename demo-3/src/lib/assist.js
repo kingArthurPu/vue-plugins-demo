@@ -55,7 +55,76 @@ function findComponentDownward (context, componentName) {
 
 export { findComponentDownward }
 
-[110, 210, 310, 410, 510].reduce((v1, v2) => {
-  console.log(v1, v2)
-  return v1
-})
+// 由一个组件向下查找所有指定组件--1
+// function findComponentsDownward (context, componentName) {
+//   return context.$children.reduce((components, child) => {
+//     if (child.$options.name === componentName) {
+//       components.push(child)
+//     }
+//     const foundChilds = findComponentsDownward(child, componentName)
+//     return components.concat(foundChilds)
+//   }, [])
+// }
+// 由一个组件向下查找所有指定组件--2
+function findComponentsDownward (context, componentName, components = []) {
+  const children = context.$children
+  if (!children.length) {
+    return []
+  }
+  for (const child of children) {
+    if (child.$options.name === componentName) {
+      components.push(child)
+    }
+    findComponentsDownward(child, componentName, components)
+  }
+  return components
+}
+// 由一个组件向下查找所有指定组件--3
+// function findComponentsDownward (context, componentName) {
+//   const components = []
+//   const children = context.$children
+//   for (const child of children) {
+//     if (child.$options.name === componentName) {
+//       components.push(child)
+//     }
+//     if (child.$children.length) {
+//       const res = findComponentsDownward(child, componentName)
+//       if (res.length) components.push(res)
+//     }
+//   }
+//   return components.flat()
+// }
+
+// function findComponentsDownward (context, componentName) {
+//   const components = []
+//   const children = context.$children
+//   for (const child of children) {
+//     if (child.$options.name === componentName) {
+//       components.concat([child])
+//     }
+//     if (child.$children.length) {
+//       const res = findComponentsDownward(child, componentName)
+//       if (res.length) components.concat([res])
+//     }
+//   }
+//   return components
+// }
+
+export { findComponentsDownward }
+
+// 由一个组件，找到指定组件的兄弟组件
+function findBrothersComponents (context, componentName, exceptMe = true) {
+  console.log(context._uid)
+  const res = context.$parent.$children.filter(item => {
+    return item.$options.name === componentName
+  })
+  console.log(res)
+  const index = res.findIndex(item => {
+    console.log(item._uid)
+    return item._uid === context._uid
+  })
+  console.log(index)
+  if (exceptMe) res.splice(index, 1)
+  return res
+}
+export { findBrothersComponents }

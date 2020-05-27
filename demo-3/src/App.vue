@@ -11,6 +11,10 @@
     <button @click="submit">提交</button>
     <button @click="reset">重置</button>
     <A/>
+    <C  val="A-val" />
+    <C  val="AA-val" />
+    <B/>
+    <B/>
   </div>
 </template>
 <script>
@@ -18,13 +22,19 @@ import zForm from './components/form/form'
 import zFormItem from './components/form/form-item'
 import zInput from './components/input/input'
 import A from './components/A'
+import B from './components/B'
+
+import { findComponentsDownward } from './lib/assist'
+import C from './components/C'
 export default {
   name: 'App',
   components: {
     zForm,
     zFormItem,
     zInput,
-    A
+    A,
+    C,
+    B
   },
   data () {
     return {
@@ -55,6 +65,11 @@ export default {
     reset () {
       this.$refs.form.resetFields()
     }
+  },
+  mounted () {
+    console.log(findComponentsDownward(this, 'C'))
+
+    // console.log(findBrothersComponents(this, 'C'))
   }
 }
 </script>

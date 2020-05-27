@@ -8,7 +8,7 @@
 <script>
 import B from './B'
 import C from './C'
-import { findComponentDownward } from '../lib/assist'
+import { findComponentDownward, findComponentsDownward, findBrothersComponents } from '../lib/assist'
 export default {
   name: 'A',
   components: {
@@ -28,6 +28,11 @@ export default {
   mounted () {
     const c = findComponentDownward(this, 'C')
     console.log(c)
+
+    const children = findComponentsDownward(this, 'C')
+    console.log('*****', children)
+
+    console.log(findBrothersComponents(this, 'B'))
   }
 }
 </script>

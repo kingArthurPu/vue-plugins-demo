@@ -17,7 +17,7 @@ export default {
     if (A) {
       console.log(A)
       console.log(A.msg)
-      A.test()
+      // A.test()
     }
     console.log(findComponentsUpward(this, 'B'))
   }

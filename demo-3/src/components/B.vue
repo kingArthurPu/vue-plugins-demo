@@ -2,6 +2,7 @@
   <div class="B">
     B.vue
     <C val="b-val" />
+     <C val="bb-val" />
   </div>
 </template>
 <script>
