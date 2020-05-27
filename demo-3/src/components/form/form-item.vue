@@ -15,24 +15,24 @@ export default {
   props: {
     label: {
       type: String,
-      default: '',
+      default: ''
     },
     prop: {
-      type: String,
-    },
+      type: String
+    }
   },
   inject: ['form'],
   mixins: [emitter],
-  data() {
+  data () {
     return {
-      initiaValue:null,
+      initiaValue: null,
       isRequired: false, // 是否为必填
       validateState: '', // 校验状态
-      validateMessage: '', // 校验不通过时的提示信息
+      validateMessage: '' // 校验不通过时的提示信息
     }
   },
   methods: {
-    setRules() {
+    setRules () {
       const rules = this.getRules()
       if (rules.length) {
         // 强制先写 required 规则
@@ -44,16 +44,16 @@ export default {
       this.$on('on-form-blur', this.onFieldBlur)
     },
     // 从 Form 的 rules 属性中，获取当前 FormItem 的校验规则
-    getRules() {
+    getRules () {
       let formRules = this.form.rules
       formRules = formRules ? formRules[this.prop] : []
       return [].concat(formRules || [])
     },
     // 只支持 blur 和 change，所以过滤出符合要求的 rule 规则
-    getFilteredRule(trigger) {
+    getFilteredRule (trigger) {
       const rules = this.getRules()
       return rules.filter(
-        rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1,
+        rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1
       )
     },
 
@@ -62,18 +62,18 @@ export default {
      * @param trigger 校验类型
      * @param callback 回调函数
      */
-    validate(trigger, callback = function() {}) {
-      let rules = this.getFilteredRule(trigger)
+    validate (trigger, callback = function () {}) {
+      const rules = this.getFilteredRule(trigger)
       if (!rules || rules.length === 0) {
         return true
       }
       // 设置状态为校验中
       this.validateState = 'validating'
       // 调用async-validator
-      let descriptor = {}
+      const descriptor = {}
       descriptor[this.prop] = rules
       const validator = new AsyncValidator(descriptor)
-      let model = {}
+      const model = {}
       model[this.prop] = this.fieldValue
 
       validator.validate(model, { firstFields: true }, errors => {
@@ -83,14 +83,14 @@ export default {
       })
     },
 
-    onFieldBlur() {
+    onFieldBlur () {
       this.validate('blur')
     },
-    onFieldChange() {
+    onFieldChange () {
       this.validate('change')
     },
     // 重置数据
-    resetField(){
+    resetField () {
       this.validateState = ''
       this.validateMessage = ''
       this.form.model[this.prop] = this.initiaValue
@@ -98,11 +98,11 @@ export default {
   },
   computed: {
     // 从Form的model中动态得到当前表单组件的数据
-    fieldValue() {
+    fieldValue () {
       return this.form.model[this.prop]
-    },
+    }
   },
-  mounted() {
+  mounted () {
     // 组件渲染时，将实例缓存在 Form 中
     // 如果没有传入 prop，则无需校验，也就无需缓存
     if (this.prop) {
@@ -112,10 +112,10 @@ export default {
       this.initiaValue = this.fieldValue
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     // 组件销毁前，将实例从 Form 的缓存中移除
     this.dispatch('zForm', 'on-form-item-remove', this)
-  },
+  }
 }
 </script>
 <style>

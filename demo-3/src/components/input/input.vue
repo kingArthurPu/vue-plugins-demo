@@ -14,29 +14,29 @@ export default {
   props: {
     value: {
       type: String,
-      default: '',
-    },
+      default: ''
+    }
   },
-  data() {
+  data () {
     return {
-      currentValue: this.value,
+      currentValue: this.value
     }
   },
   watch: {
-    value(newVal) {
+    value (newVal) {
       this.currentValue = newVal
-    },
+    }
   },
   methods: {
-    handleInput(event) {
+    handleInput (event) {
       const value = event.target.value
       this.currentValue = value
       this.$emit('input', value)
       this.dispatch('zFormItem', 'on-form-change', value)
     },
-    handleBlur() {
+    handleBlur () {
       this.dispatch('zFormItem', 'on-form-blur', this.currentValue)
-    },
-  },
+    }
+  }
 }
 </script>

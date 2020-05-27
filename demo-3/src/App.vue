@@ -10,49 +10,52 @@
     </z-form>
     <button @click="submit">提交</button>
     <button @click="reset">重置</button>
+    <A/>
   </div>
 </template>
 <script>
 import zForm from './components/form/form'
 import zFormItem from './components/form/form-item'
 import zInput from './components/input/input'
+import A from './components/A'
 export default {
   name: 'App',
   components: {
     zForm,
     zFormItem,
-    zInput
+    zInput,
+    A
   },
-  data() {
+  data () {
     return {
-      value:'hello world',
+      value: 'hello world',
       formValidate: {
         name: '',
-        mail: '',
+        mail: ''
       },
       ruleValidate: {
         name: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
         mail: [
           { required: true, message: '邮箱不能为空', trigger: 'blur' },
-          { type: 'email', message: '邮箱格式不正确', trigger: 'blur' },
-        ],
-      },
+          { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+        ]
+      }
     }
   },
   methods: {
-    submit(){
-      this.$refs.form.validate(valid=>{
-        if(valid){
+    submit () {
+      this.$refs.form.validate(valid => {
+        if (valid) {
           console.log('提交成功')
-        }else{
+        } else {
           console.log('表单校验失败')
         }
       })
     },
-    reset(){
+    reset () {
       this.$refs.form.resetFields()
     }
-  },
+  }
 }
 </script>
 <style></style>
