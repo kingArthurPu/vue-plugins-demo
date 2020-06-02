@@ -7,6 +7,7 @@
       <z-form-item label="邮箱" prop="mail">
         <z-input v-model="formValidate.mail"></z-input>
       </z-form-item>
+      <z-checkbox v-model="singleCheckbox">单独选项</z-checkbox>
     </z-form>
     <button @click="submit">提交</button>
     <button @click="reset">重置</button>
@@ -21,6 +22,8 @@
 import zForm from './components/form/form'
 import zFormItem from './components/form/form-item'
 import zInput from './components/input/input'
+
+import zCheckbox from './components/checkbox/checkbox'
 import A from './components/A'
 import B from './components/B'
 
@@ -34,10 +37,12 @@ export default {
     zInput,
     A,
     C,
-    B
+    B,
+    zCheckbox
   },
   data () {
     return {
+      singleCheckbox: false,
       value: 'hello world',
       formValidate: {
         name: '',
