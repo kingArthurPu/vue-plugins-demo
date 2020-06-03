@@ -1,7 +1,15 @@
 <template>
   <label class="container">
     <span class="out-circel">
+       <input
+             v-if="group"
+             type="checkbox"
+             :disabled="disabled"
+             :value="label"
+             v-model="model"
+             @change="change">
       <input
+        v-else
         type="checkbox"
         :disabled="disabled"
         :checked="currentValue"
@@ -14,10 +22,14 @@
 </template>
 <script>
 import Emitter from '../../lib/emitter'
+import { findComponentUpward } from '../../lib/assist.js'
 export default {
-  name: 'ZCheckbox',
+  name: 'zCheckbox',
   mixins: [Emitter],
   props: {
+    label: {
+      type: [String, Number, Boolean]
+    },
     disabled: {
       type: Boolean,
       default: false
@@ -37,7 +49,22 @@ export default {
   },
   data () {
     return {
-      currentValue: this.value
+      currentValue: this.value,
+      parent: null,
+      model: [],
+      group: false
+    }
+  },
+  mounted () {
+    this.parent = findComponentUpward(this, 'zCheckboxGroup')
+    if (this.parent) {
+      this.group = true
+    }
+
+    if (this.group) {
+      this.parent.updateModel(true)
+    } else {
+      this.updateModel()
     }
   },
   methods: {
@@ -49,8 +76,13 @@ export default {
       this.currentValue = checked
       const value = checked ? this.trueValue : this.falseValue
       this.$emit('input', value)
-      this.$emit('on-change', value)
-      this.dispatch('zFormItem', 'on-form-change', value)
+
+      if (this.group) {
+        this.parent.change(this.model)
+      } else {
+        this.$emit('on-change', value)
+        this.dispatch('zFormItem', 'on-form-change', value)
+      }
     },
     updateModel () {
       this.currentValue = this.value === this.trueValue

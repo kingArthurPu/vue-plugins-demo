@@ -7,15 +7,13 @@
       <z-form-item label="邮箱" prop="mail">
         <z-input v-model="formValidate.mail"></z-input>
       </z-form-item>
-      <z-checkbox v-model="singleCheckbox">单独选项</z-checkbox>
+      <z-form-item  prop="xy">
+        <z-checkbox v-model="formValidate.xy">用户协议</z-checkbox>
+      </z-form-item>
     </z-form>
     <button @click="submit">提交</button>
     <button @click="reset">重置</button>
-    <A/>
-    <C  val="A-val" />
-    <C  val="AA-val" />
-    <B/>
-    <B/>
+
   </div>
 </template>
 <script>
@@ -24,20 +22,13 @@ import zFormItem from './components/form/form-item'
 import zInput from './components/input/input'
 
 import zCheckbox from './components/checkbox/checkbox'
-import A from './components/A'
-import B from './components/B'
 
-import { findComponentsDownward } from './lib/assist'
-import C from './components/C'
 export default {
   name: 'App',
   components: {
     zForm,
     zFormItem,
     zInput,
-    A,
-    C,
-    B,
     zCheckbox
   },
   data () {
@@ -46,13 +37,17 @@ export default {
       value: 'hello world',
       formValidate: {
         name: '',
-        mail: ''
+        mail: '',
+        xy: '1'
       },
       ruleValidate: {
         name: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
         mail: [
           { required: true, message: '邮箱不能为空', trigger: 'blur' },
           { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
+        ],
+        xy: [
+          { required: true, message: '必须同意用户协议', trigger: 'blur' }
         ]
       }
     }
@@ -72,9 +67,7 @@ export default {
     }
   },
   mounted () {
-    console.log(findComponentsDownward(this, 'C'))
 
-    // console.log(findBrothersComponents(this, 'C'))
   }
 }
 </script>

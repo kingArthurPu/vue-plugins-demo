@@ -11,8 +11,8 @@ function findComponentUpward (context, componentName) {
     if (parent) {
       name = parent.$options.name
     }
-    return parent
   }
+  return parent
 }
 
 export { findComponentUpward }
