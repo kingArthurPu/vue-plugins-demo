@@ -64,6 +64,7 @@ export default {
      */
     validate (trigger, callback = function () {}) {
       const rules = this.getFilteredRule(trigger)
+      console.log(rules)
       if (!rules || rules.length === 0) {
         return true
       }
@@ -72,6 +73,7 @@ export default {
       // 调用async-validator
       const descriptor = {}
       descriptor[this.prop] = rules
+      console.log(descriptor)
       const validator = new AsyncValidator(descriptor)
       const model = {}
       model[this.prop] = this.fieldValue

@@ -7,20 +7,28 @@
       <z-form-item label="邮箱" prop="mail">
         <z-input v-model="formValidate.mail"></z-input>
       </z-form-item>
-      <z-form-item  prop="xy">
-        <z-checkbox v-model="formValidate.xy">用户协议</z-checkbox>
+      <z-form-item label="爱好" prop="hobby">
+        <z-checkbox-group v-model="formValidate.hobby">
+          <z-checkbox label="踢球">踢球</z-checkbox>
+          <z-checkbox label="唱歌">唱歌</z-checkbox>
+          <z-checkbox label="跳舞">跳舞</z-checkbox>
+          <z-checkbox label="躺尸">躺尸</z-checkbox>
+          <z-checkbox label="躺尸2">躺尸2</z-checkbox>
+        </z-checkbox-group>
+      </z-form-item>
+      <z-form-item label="勾选协议"  prop="xy">
+        <z-checkbox v-model="formValidate.xy">用户协议{{formValidate.xy}}</z-checkbox>
       </z-form-item>
     </z-form>
     <button @click="submit">提交</button>
     <button @click="reset">重置</button>
-
   </div>
 </template>
 <script>
 import zForm from './components/form/form'
 import zFormItem from './components/form/form-item'
 import zInput from './components/input/input'
-
+import zCheckboxGroup from './components/checkbox/checkbox-group'
 import zCheckbox from './components/checkbox/checkbox'
 
 export default {
@@ -29,16 +37,17 @@ export default {
     zForm,
     zFormItem,
     zInput,
+    zCheckboxGroup,
     zCheckbox
   },
   data () {
     return {
-      singleCheckbox: false,
-      value: 'hello world',
+      users: [],
       formValidate: {
         name: '',
         mail: '',
-        xy: '1'
+        xy: false,
+        hobby: []
       },
       ruleValidate: {
         name: [{ required: true, message: '用户名不能为空', trigger: 'blur' }],
@@ -47,7 +56,10 @@ export default {
           { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
         ],
         xy: [
-          { required: true, message: '必须同意用户协议', trigger: 'blur' }
+          { required: true, type: 'enum', enum: [true], message: '必须同意用户协议', trigger: 'change' }
+        ],
+        hobby: [
+          { required: true, type: 'array', message: '至少选择一个爱好', trigger: 'change' }
         ]
       }
     }

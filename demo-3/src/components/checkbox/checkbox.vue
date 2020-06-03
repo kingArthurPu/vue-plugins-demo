@@ -1,20 +1,21 @@
 <template>
   <label class="container">
     <span class="out-circel">
-       <input
-             v-if="group"
-             type="checkbox"
-             :disabled="disabled"
-             :value="label"
-             v-model="model"
-             @change="change">
+      <input
+        v-if="group"
+        type="checkbox"
+        :disabled="disabled"
+        :value="label"
+        v-model="model"
+        @change="change"
+      />
       <input
         v-else
         type="checkbox"
         :disabled="disabled"
         :checked="currentValue"
         @change="change"
-      >
+      />
       <span class="check-pointer"></span>
     </span>
     <slot></slot>
@@ -100,33 +101,33 @@ export default {
 }
 </script>
 
-<style scoped >
-  .container{
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
-  .container .out-circel{
-      width: 20px;
-      height:20px;
-      position: relative;
-      border-radius: 100%;
-      background-color: #cccccc;
-    }
-    .container .out-circel input{
-      display: none;
-    }
-    .container .out-circel .check-pointer{
-      background-color: #ffffff;
-      width: 10px;
-      height:10px;
-      border-radius: 100%;
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%,-50%);
-    }
-    .container .out-circel input:checked + .check-pointer{
-      background-color: blue;
-    }
+<style scoped>
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.container .out-circel {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  border-radius: 100%;
+  background-color: #cccccc;
+}
+.container .out-circel input {
+  display: none;
+}
+.container .out-circel .check-pointer {
+  background-color: #ffffff;
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.container .out-circel input:checked + .check-pointer {
+  background-color: blue;
+}
 </style>
