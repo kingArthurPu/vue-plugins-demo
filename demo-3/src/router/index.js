@@ -3,8 +3,11 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-  const routes = [
-  
+const routes = [
+  {
+    path: '/display',
+    component: () => import('../views/display')
+  }
 ]
 
 const router = new VueRouter({

@@ -22,6 +22,8 @@
     </z-form>
     <button @click="submit">提交</button>
     <button @click="reset">重置</button>
+
+    <router-view></router-view>
   </div>
 </template>
 <script>
