@@ -16,7 +16,7 @@ Alert.newInstance = properties => {
   const alert = Instance.$children[0]
   return {
     add (noticeProps) {
-      alert.add(noticeProps)
+      return alert.add(noticeProps)
     },
     remove (name) {
       alert.remove(name)

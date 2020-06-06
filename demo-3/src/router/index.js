@@ -7,6 +7,14 @@ const routes = [
   {
     path: '/display',
     component: () => import('../views/display')
+  },
+  {
+    path: '/notice',
+    component: () => import('../views/notice')
+  },
+  {
+    path: '/form',
+    component: () => import('../views/form')
   }
 ]
 

@@ -9,10 +9,17 @@ function getMessageInstance () {
 
 function notice ({ duration = 1500, content = '' }) {
   const instance = getMessageInstance()
-  instance.add({
+  const name = instance.add({
+    type: 'alert',
     content,
     duration
   })
+
+  return {
+    clear () {
+      instance.remove(name)
+    }
+  }
 }
 
 export default {

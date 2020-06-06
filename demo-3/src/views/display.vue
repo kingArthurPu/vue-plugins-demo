@@ -2,7 +2,7 @@
   <div>
     <h3>动态渲染.vue文件的组件</h3>
     <z-display :code="code"></z-display>
-    <button @click="handleClick">alert</button>
+
   </div>
 </template>
 <script>
@@ -19,11 +19,7 @@ export default {
     }
   },
   methods: {
-    handleClick () {
-      this.$Alert.info({
-        content: '这是测试'
-      })
-    }
+
   }
 }
 </script>
