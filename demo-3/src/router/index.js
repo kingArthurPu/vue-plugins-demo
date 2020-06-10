@@ -15,6 +15,14 @@ const routes = [
   {
     path: '/form',
     component: () => import('../views/form')
+  },
+  {
+    path: '/tablerender',
+    component: () => import('../views/table-render')
+  },
+  {
+    path: '/demo',
+    component: () => import('../views/demo')
   }
 ]
 
