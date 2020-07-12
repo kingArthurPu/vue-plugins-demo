@@ -23,6 +23,26 @@ const routes = [
   {
     path: '/demo',
     component: () => import('../views/demo')
+  },
+  {
+    path: '/list',
+    component: () => import('../views/list')
+  },
+  {
+    path: '/tableslot1',
+    component: () => import('../views/table-slot1')
+  },
+  {
+    path: '/tableslot2',
+    component: () => import('../views/table-slot2')
+  },
+  {
+    path: '/tableslot3',
+    component: () => import('../views/table-slot3')
+  },
+  {
+    path: '/tree',
+    component: () => import('../views/tree')
   }
 ]
 

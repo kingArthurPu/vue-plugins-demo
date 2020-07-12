@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <input type="text" :value="currentValue" @input="input">
-  </div>
+  <input type="text" :value="currentValue" @input="input">
 </template>
 <script>
 export default {

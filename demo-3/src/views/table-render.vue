@@ -12,10 +12,34 @@ export default {
   },
   data () {
     return {
+      editName: '', // 第一列输入框
+      editAge: '', // 第二列输入框
+      editBirthday: '', // 第三列输入框
+      editAddress: '', // 第四列输入框
+      editIndex: -1, // 当前聚焦的输入框的行数
       columns: [
         {
           title: '姓名',
-          key: 'name'
+          key: 'name',
+          render: (h, { row, index }) => {
+            let edit
+            if (this.editIndex === index) {
+              edit = [h('input', {
+                domProps: {
+                  value: row.name
+                },
+                on: {
+                  input: (event) => {
+                    this.editName = event.target.value
+                  }
+                }
+              })]
+            } else {
+              edit = row.name
+            }
+
+            return h('div', [edit])
+          }
         },
         {
           title: '年龄',
@@ -23,14 +47,80 @@ export default {
         },
         {
           title: '出生日期',
-          key: 'birthday'
+          key: 'birthday',
+          render: (h, { row, column }) => {
+            const date = new Date(parseInt(row.birthday))
+            const year = date.getFullYear()
+            const month = date.getMonth() + 1
+            const day = date.getDate()
+
+            const dateStr = `${year}-${month}-${day}`
+            return h('span', {
+              style: {
+                color: 'red',
+                'font-weight': 'bold'
+              }
+            }, dateStr)
+          }
         },
         {
           title: '地址',
           key: 'address'
         },
         {
-          title: '操作'
+          title: '操作',
+          render: (h, { row, index }) => {
+            if (this.editIndex === index) {
+              return [
+                h('button', {
+                  on: {
+                    click: () => {
+                      this.data[index].name = this.editName
+                      this.data[index].age = this.editAge
+                      this.data[index].birthday = this.editBirthday
+                      this.data[index].address = this.editAddress
+                      this.editIndex = -1
+                    }
+                  }
+                }, '保存'),
+                h('button', {
+                  style: {
+                    marginLeft: '10px'
+                  },
+                  on: {
+                    click: () => {
+                      this.editIndex = -1
+                    }
+                  }
+                }, '取消')
+              ]
+            } else {
+              return [
+                h('button', {
+                  on: {
+                    click: () => {
+                      this.editName = row.name
+                      this.editAge = row.age
+                      this.editAddress = row.address
+                      this.editBirthday = row.birthday
+                      this.editIndex = index
+                    }
+                  }
+                }, '编辑'),
+                h('button', {
+                  style: {
+                    marginLeft: '10px'
+                  },
+                  on: {
+                    click: () => {
+                      console.log(index)
+                      this.data.splice(index, 1)
+                    }
+                  }
+                }, '删除')
+              ]
+            }
+          }
         }
       ],
       data: [

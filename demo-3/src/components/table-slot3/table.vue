@@ -11,6 +11,9 @@
           <template v-if="'render' in col">
             <render :row="row" :column="col" :index="index" :render="col.render"></render>
           </template>
+          <template v-else-if="'slot' in col">
+            <slot-scope :row="row" :column="col" :index="index" ></slot-scope>
+          </template>
           <template v-else>{{ row[col.key] }}</template>
         </td>
       </tr>
@@ -19,10 +22,17 @@
 </template>
 <script>
 import Render from './render'
+import SlotScope from './slot'
 export default {
   name: 'zTable',
+  provide () {
+    return {
+      tableRoot: this
+    }
+  },
   components: {
-    Render
+    Render,
+    SlotScope
   },
   props: {
     columns: {
