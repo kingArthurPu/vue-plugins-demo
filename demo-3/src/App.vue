@@ -11,6 +11,7 @@
     <router-link tag="button" to='/tableslot2'>table-slot-2</router-link>
     <router-link tag="button" to='/tableslot3'>table-slot-3</router-link>
     <router-link tag="button" to='/tree'>tree</router-link>
+    <router-link tag="button" to='/display2'>display2</router-link>
 
     <hr>
     <router-view></router-view>

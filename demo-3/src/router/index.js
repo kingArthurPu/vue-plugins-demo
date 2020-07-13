@@ -43,6 +43,10 @@ const routes = [
   {
     path: '/tree',
     component: () => import('../views/tree')
+  },
+  {
+    path: '/display2',
+    component: () => import('../views/display2')
   }
 ]
 

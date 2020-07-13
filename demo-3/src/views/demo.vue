@@ -34,6 +34,11 @@ export default {
   },
   methods: {
 
+  },
+  watch: {
+    uname () {
+      console.log(this.uname)
+    }
   }
 }
 </script>
